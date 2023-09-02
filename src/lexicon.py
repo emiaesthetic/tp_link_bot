@@ -4,9 +4,10 @@ LEXICON_EN = {
     "/help": "<b>Available commands:</b>\n"
     "/devices - show devices connected to the router\n"
     "/blacklist - show devices blacklisted\n"
-    "/add - add a device to the blacklist, here you need to pass the "
-    "MAC address of the device in the format XX:XX:XX:XX:XX:XX\n"
-    "/remove - removes a device from the blacklist, here you need to pass the "
-    "MAC address of the device in the format XX:XX:XX:XX:XX:XX\n"
-    "/reboot - reboot router"
+    "/add - add a device to the blacklist\n"
+    "/remove - removes a device from the blacklist\n"
+    "/reboot - reboot router",
+    "/add": "<b>Какое устройство добавить в черный список?</b>\n",
+    "/remove": "<b>Какое устройство удалить из черного списка?</b>\n",
+    "cancel": "Отменить",
 }

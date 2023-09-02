@@ -111,6 +111,41 @@ class Session:
             )
         return message if message else "Blacklist is empty"
 
+    @staticmethod
+    def validate_mac_address(mac_address: str) -> bool:
+        pattern = r"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$"
+        allowed = re.compile(pattern=pattern, flags=re.IGNORECASE)
+        return bool(allowed.fullmatch(mac_address))
+
+    def add_device_to_blacklist(self, mac_address: str) -> None:
+        if not self.validate_mac_address(mac_address):
+            raise ValueError()
+        payload = Payload.ADD_FILTER.value.format(mac_address)
+        self.send(Endpoint.ADD_FILTER.value, payload)
+
+    def get_device_id(self, mac_address: str) -> Optional[str]:
+        devices = self.get_blacklisted_devices()
+        device_id = None
+        for device in devices:
+            if device.mac_address == mac_address and isinstance(
+                device.device_id, str
+            ):
+                device_id = device.device_id[1:-1]
+        return device_id
+
+    def removed_device_from_blacklist(self, mac_address: str) -> None:
+        if not self.validate_mac_address(mac_address):
+            raise ValueError()
+        device_id = self.get_device_id(mac_address)
+        if device_id:
+            payload = Payload.REMOVE_FILTER.value.format(device_id)
+            self.send(Endpoint.REMOVE_FILTER.value, payload)
+        else:
+            print("MAC-address not blacklisted")
+
+    def reboot(self):
+        self.send(Endpoint.REBOOT.value, Payload.REBOOT.value)
+
 
 session: Session = Session(
     host=config.host,
