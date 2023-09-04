@@ -3,8 +3,10 @@ LEXICON_EN = {
     "\n\nI will help you manage your home router."
     "You can view connected devices, add them to the black list or delete them."
     "\nFor detailed information, use the command /help.",
-    "/help": "\n\n📃Available commands: \n/devices - show all devices: "
+    "/help": "\n\n📃Available commands:"
+    "\n/devices - show all devices: "
     "✅ - have access to the network, ❌ - do not have access to the network."
+    "\n/reboot - reboot router"
     "\n\nLists are edited as follows:"
     "\n✅ - add device to black list"
     "\n❌ - remove device from black list"
