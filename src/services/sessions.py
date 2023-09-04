@@ -71,16 +71,6 @@ class Session:
             )
         return devices
 
-    def show_wireless_connected_devices(self) -> str:
-        devices = self.get_wireless_connected_devices()
-        message = ""
-        for index, device in enumerate(devices, 1):
-            message += (
-                f"{index}. Device: {device.hostname}"
-                f"\nMAC-address: {device.mac_address}\n\n"
-            )
-        return message if message else "No device is connected"
-
     def get_blacklisted_devices(self) -> list[Device]:
         string = self.send(Endpoint.BLACK_LIST.value, Payload.BLACK_LIST.value)
         patterns = (
@@ -101,25 +91,7 @@ class Session:
             )
         return devices
 
-    def show_blacklisted_devices(self) -> str:
-        devices = self.get_blacklisted_devices()
-        message = ""
-        for index, device in enumerate(devices, 1):
-            message += (
-                f"{index}. Device: {device.hostname}"
-                f"\nMAC-address: {device.mac_address}\n\n"
-            )
-        return message if message else "Blacklist is empty"
-
-    @staticmethod
-    def validate_mac_address(mac_address: str) -> bool:
-        pattern = r"^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$"
-        allowed = re.compile(pattern=pattern, flags=re.IGNORECASE)
-        return bool(allowed.fullmatch(mac_address))
-
     def add_device_to_blacklist(self, mac_address: str) -> None:
-        if not self.validate_mac_address(mac_address):
-            raise ValueError()
         payload = Payload.ADD_FILTER.value.format(mac_address)
         self.send(Endpoint.ADD_FILTER.value, payload)
 
@@ -134,8 +106,6 @@ class Session:
         return device_id
 
     def removed_device_from_blacklist(self, mac_address: str) -> None:
-        if not self.validate_mac_address(mac_address):
-            raise ValueError()
         device_id = self.get_device_id(mac_address)
         if device_id:
             payload = Payload.REMOVE_FILTER.value.format(device_id)
@@ -143,7 +113,7 @@ class Session:
         else:
             print("MAC-address not blacklisted")
 
-    def reboot(self):
+    def reboot(self) -> None:
         self.send(Endpoint.REBOOT.value, Payload.REBOOT.value)
 
 

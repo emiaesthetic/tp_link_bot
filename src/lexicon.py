@@ -1,13 +1,19 @@
 LEXICON_EN = {
-    "/start": "<b>Hello!</b>\nThis bot allows you to control the router "
-    "version TL-WR840N v5",
-    "/help": "<b>Available commands:</b>\n"
-    "/devices - show devices connected to the router\n"
-    "/blacklist - show devices blacklisted\n"
-    "/add - add a device to the blacklist\n"
-    "/remove - removes a device from the blacklist\n"
-    "/reboot - reboot router",
-    "/add": "<b>Какое устройство добавить в черный список?</b>\n",
-    "/remove": "<b>Какое устройство удалить из черного списка?</b>\n",
-    "cancel": "Отменить",
+    "/start": "<b>Hello!</b>👋"
+    "\n\nI will help you manage your home router."
+    "You can view connected devices, add them to the black list or delete them."
+    "\nFor detailed information, use the command /help.",
+    "/help": "\n\n📃Available commands: \n/devices - show all devices: "
+    "✅ - have access to the network, ❌ - do not have access to the network."
+    "\n\nLists are edited as follows:"
+    "\n✅ - add device to black list"
+    "\n❌ - remove device from black list"
+    "\n💡 - refreshes the list of devices"
+    "\n\n⚠️This bot is designed for budget models with firmware without API. "
+    "Tested on TL-WR840N v5 with firmware version 0.9.1 3.16 v0283.0.",
+    "/devices": "<b>📃  All devices:</b>\n",
+    "update": "💡Update device list",
+    "other": "I don't understand.\nUse the /help command 👀",
 }
+
+DEVICE_STATUS = {"ON": "✅", "OFF": "❌"}
