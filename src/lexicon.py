@@ -10,11 +10,13 @@ LEXICON_EN = {
     "\n\nLists are edited as follows:"
     "\n✅ - add device to black list"
     "\n❌ - remove device from black list"
-    "\n💡 - refreshes the list of devices"
+    "\n📃 - refreshes the list of devices"
     "\n\n⚠️This bot is designed for budget models with firmware without API. "
     "Tested on TL-WR840N v5 with firmware version 0.9.1 3.16 v0283.0.",
-    "/devices": "<b>📃  All devices:</b>\n",
-    "update": "💡Update device list",
+    "/devices": "<b>📃 All devices:</b>\n",
+    "wait": "Please wait, reboot lasts 60 seconds 🕐",
+    "after_waiting": "Network available 💡",
+    "update": "Update device list 📃",
     "other": "I don't understand.\nUse the /help command 👀",
 }
 

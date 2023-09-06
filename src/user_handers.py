@@ -1,3 +1,5 @@
+import asyncio
+
 from aiogram import F, Router
 from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command, CommandStart
@@ -33,6 +35,14 @@ async def process_devices_command(message: Message):
         text=LEXICON_EN[message.text],
         reply_markup=create_keyboard(white_list, black_list),
     )
+
+
+@router.message(Command(commands=["reboot"]))
+async def process_reboot_command(message: Message):
+    await message.answer(text=LEXICON_EN["wait"])
+    session.reboot()
+    await asyncio.sleep(55)
+    await message.answer(text=LEXICON_EN["after_waiting"])
 
 
 @router.callback_query(IsAddCallbackData(), IsMacAddressCallbackData())
