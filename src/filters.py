@@ -1,7 +1,9 @@
 import re
 
 from aiogram.filters import BaseFilter
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, Message
+
+from src.configreader import config
 
 
 class IsMacAddressCallbackData(BaseFilter):
@@ -11,11 +13,14 @@ class IsMacAddressCallbackData(BaseFilter):
         return bool(allowed.fullmatch(callback.data.split()[-1]))
 
 
-class IsAddCallbackData(BaseFilter):
+class IsEditCallbackData(BaseFilter):
+    def __init__(self, operation: str) -> None:
+        self.operation = operation
+
     async def __call__(self, callback: CallbackQuery) -> bool:
-        return callback.data.startswith("add")
+        return callback.data.startswith(self.operation)
 
 
-class IsRemoveCallbackData(BaseFilter):
-    async def __call__(self, callback: CallbackQuery) -> bool:
-        return callback.data.startswith("remove")
+class IsAdmin(BaseFilter):
+    async def __call__(self, message: Message) -> bool:
+        return message.from_user.id == int(config.admin_id)

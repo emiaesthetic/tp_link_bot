@@ -5,16 +5,18 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command, CommandStart
 from aiogram.types import CallbackQuery, Message
 
-from src.filters import (
-    IsAddCallbackData,
-    IsMacAddressCallbackData,
-    IsRemoveCallbackData,
-)
+from src.configreader import config
+from src.filters import IsAdmin, IsEditCallbackData, IsMacAddressCallbackData
 from src.keyboards import create_keyboard
 from src.lexicon import LEXICON_EN
 from src.services.sessions import session
 
 router: Router = Router()
+
+
+@router.message(~IsAdmin())
+async def process_outside_user_command(message: Message):
+    await message.answer(LEXICON_EN["outside_user"])
 
 
 @router.message(CommandStart())
@@ -45,14 +47,14 @@ async def process_reboot_command(message: Message):
     await message.answer(text=LEXICON_EN["after_waiting"])
 
 
-@router.callback_query(IsAddCallbackData(), IsMacAddressCallbackData())
+@router.callback_query(IsEditCallbackData("add"), IsMacAddressCallbackData())
 async def process_add_press(callback: CallbackQuery):
     mac_address = callback.data.split()[-1]
     session.add_device_to_blacklist(mac_address)
     await callback.answer()
 
 
-@router.callback_query(IsRemoveCallbackData(), IsMacAddressCallbackData())
+@router.callback_query(IsEditCallbackData("remove"), IsMacAddressCallbackData())
 async def process_remove_press(callback: CallbackQuery):
     mac_address = callback.data.split()[-1]
     session.removed_device_from_blacklist(mac_address)

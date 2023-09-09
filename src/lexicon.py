@@ -18,6 +18,7 @@ LEXICON_EN = {
     "after_waiting": "Network available 💡",
     "update": "Update device list 📃",
     "other": "I don't understand.\nUse the /help command 👀",
+    "outside_user": "Access is denied! 💀",
 }
 
 DEVICE_STATUS = {"ON": "✅", "OFF": "❌"}
